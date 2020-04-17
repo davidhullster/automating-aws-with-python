@@ -104,3 +104,15 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# notifon
+node_modules/
+.serverless/
+config.dev.json
+*pem
+
+# videolyzer
+.vscode/
+dhull-chenganddavid-accessKeys.csv
+dhull-devopspro-7489630-accessKeys-NEW.csv
+dhull-devopspro-7489630-accessKeys.csv
