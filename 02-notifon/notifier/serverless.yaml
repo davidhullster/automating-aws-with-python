@@ -1,0 +1,29 @@
+# Welcome to Serverless!
+
+service: notifon-notifier
+
+
+provider:
+  name: aws
+  runtime: python3.7
+  profile: ${file(../config.${self:provider.stage}.json):notifier.profile}
+  region: us-east-2
+  environment:
+    SLACK_WEBHOOK_URL: ${file(../config.${self:provider.stage}.json):notifier.slack_webhook_url}
+
+functions:
+  post-to-slack:
+    handler: handler.post_to_slack
+    events:
+      - cloudwatchEvent:
+          event:
+            source:
+              - "aws.autoscaling"
+            detail-type:
+              - "EC2 Instance Launch Successful"
+            detail:
+              AutoScalingGroupName:
+                - "Notifon Example Group"
+
+plugins:
+  - serverless-python-requirements
